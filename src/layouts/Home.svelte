@@ -1,11 +1,14 @@
 <script>
 import { onDestroy } from 'svelte'
-export let query;
+import { fly, fade } from 'svelte/transition'
 import EatingImage from './../assets/images/eating.svg'
+import { SearchOutlined } from 'svelte-ant-design-icons'
+import { navigate } from 'svelte-routing'
 
+export let query;
 
 const placeholderItems = ['breakfast', 'lunch', 'dinner', 'snacks', 'dessert', 'drinks']
-const results = [
+export const results = [
   {
       restaurant: 'Pruthvi Vegetarianism',
       name: 'Pav Bhaji',
@@ -25,7 +28,7 @@ let active = false
 
 let placeholderItem =placeholderItems[0]
 $: placeholder = active ? '' : `Search for ${placeholderItem}`
-
+$: width = query ? '90%' : '100%'
 
 const interval = setInterval(() => {
   let index = placeholderItems.indexOf(placeholderItem)
@@ -43,15 +46,28 @@ const setActive = val => active =  val
 onDestroy(() => {
   clearInterval(interval)
 })
+
+const search = () => {
+  navigate('/search')
+  console.log('this ran')
+}
 </script>
 
-<div class="home">
+<div class="home" in:fade={{ delay: 200, duration: 200 }} out:fade={{ duration: 200 }}>
   <div class="home-left">
     
     <div class="home-text">
       Just enter the name of your food item <br /> and we'll search the world in order to get you the best price!
     </div>
-    <input {placeholder} type="text" class="home-input" on:focusin={() => setActive(true)} on:focusout={() => setActive(false)} bind:value={query} />
+    <div class="home-input-container">
+
+      <input {placeholder} style:width={width} type="text" class="home-input" on:focusin={() => setActive(true)} on:focusout={() => setActive(false)} bind:value={query} />
+      {#if query}
+        <button on:click={search} class="home-input-button" transition:fly={{ x: 20, duration: 200 }}>
+          <SearchOutlined color="#fff" />
+        </button>
+      {/if}
+    </div>
   </div>
   <div class="home-right">
     <img src={EatingImage} alt="Man and Woman Eating">
@@ -69,18 +85,34 @@ onDestroy(() => {
   transform translate(-50%, -50%)
 
   &-input
-    margin-top 2rem
-    width 100%
     font-size 2rem
     background #fff;
-    border solid 0.2rem rgba(#ccc, 1)
+    border solid 0.2rem rgba(#eee, 1)
     transition all .2s ease-in-out
     border-radius 0.5rem
     padding 0.5rem 1rem
     &:active, &:focus
+      width 90%
       border solid 0.2rem rgba(#d35400, 0.5)
-      
 
+    &-container
+      margin-top 2rem
+      display flex
+      align-items center
+      justify-content space-between
+      width 100%
+
+
+    &-button
+      background -webkit-linear-gradient(bottom left,  #c0392b, #f1c40f)
+      border-radius 100rem
+      width 3rem
+      height 3rem
+      cursor pointer
+      transition all .2s ease-in-out
+      &:hover
+        transform scale(1.1)
+  
   &-text
     font-size 1.2rem
 

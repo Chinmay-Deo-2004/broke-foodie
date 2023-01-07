@@ -1,6 +1,7 @@
 <script>
 import { onMount } from 'svelte';
 import { navigate } from 'svelte-routing'
+import { fade } from 'svelte/transition'
 
 import SearchResult from './../components/SearchResult.svelte'
 
@@ -12,12 +13,13 @@ export const addResult = (result) => {
 };
 
 onMount(() => {
+  console.log('query: ', query)
   if (!query) navigate('/');
 })
 
 </script>
 
-<div class="search-results">
+<div class="search-results" in:fade={{ delay: 200, duration: 200 }} out:fade={{ duration: 200 }}>
   <div class="search-results-query">
     {#if results.length > 0}
       Search results for "{query}"

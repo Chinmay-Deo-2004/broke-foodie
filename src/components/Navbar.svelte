@@ -2,7 +2,7 @@
 import { navigate } from 'svelte-routing'
 
 const links = [
-  {name: 'search-results', text: 'Search'},
+  {name: 'search', text: 'Search'},
   {name: 'about', text: 'About Us'},
   {name: 'docs', text: 'Help'},
 ]

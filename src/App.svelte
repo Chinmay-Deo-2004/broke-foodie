@@ -6,6 +6,8 @@
   import About from './layouts/About.svelte'
   import Docs from './layouts/Docs.svelte'
 
+  import { fade } from 'svelte/transition'
+
   import './assets/stylus/common-styles.stylus'
 
   let query = '';
@@ -20,10 +22,10 @@
 <Router url="/">
   <Navbar />
   <Route path="/">
-    <Home {query} />
+    <Home bind:query={query} bind:results={results} />
   </Route>
-  <Route path="/search-results">
-    <SearchResults {results} {query} />
+  <Route path="/search">
+    <SearchResults {results} bind:query={query} />
   </Route>
   <Route path="/about">
     <About />
