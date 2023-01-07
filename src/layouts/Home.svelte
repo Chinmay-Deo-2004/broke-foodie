@@ -6,9 +6,10 @@ import { SearchOutlined } from 'svelte-ant-design-icons'
 import { navigate } from 'svelte-routing'
 
 export let query;
+export let resultArray = []
 
 const placeholderItems = ['breakfast', 'lunch', 'dinner', 'snacks', 'dessert', 'drinks']
-export const results = [
+const results = [
   {
       restaurant: 'Pruthvi Vegetarianism',
       name: 'Pav Bhaji',
@@ -50,6 +51,7 @@ onDestroy(() => {
 const search = () => {
   navigate('/search')
   console.log('this ran')
+  resultArray = results
 }
 </script>
 

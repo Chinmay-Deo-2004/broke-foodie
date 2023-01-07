@@ -17,6 +17,4 @@ import { fade } from 'svelte/transition'
     font-size 2rem
   p
     font-size 1rem
-  &-text
-    width 70%
 </style>

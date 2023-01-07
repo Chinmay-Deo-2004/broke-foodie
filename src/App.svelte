@@ -22,7 +22,7 @@
 <Router url="/">
   <Navbar />
   <Route path="/">
-    <Home bind:query={query} bind:results={results} />
+    <Home bind:query={query} bind:resultArray={results} />
   </Route>
   <Route path="/search">
     <SearchResults {results} bind:query={query} />
